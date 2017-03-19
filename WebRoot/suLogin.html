@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/CloudPrint/manager/managerLogin" method="post">
+        <label>账号:</label><input type="text" name="manager.manager_id" value="${name!}"> <br /><br /> 
+        <label>密码:</label><input type="password" name="manager.manager_pwd" value="${pwd!}"><br /><br />
+        验证码：<input type="text" name="code"/>
+        <img src="./code" onclick="this.src='./code?x='+Math.random()"></br> <!-- 设置name为code 用于后台接收验证码并进行校验--> 
+        <button type="submit">登录</button>
+    </form>
+ 	<h4>${loginFalse!}</h4>
+ 	<h4>${validateFalse!}</h4>
+    <h4 id="loginFalse" style="display:${loginFalse!};">登录失败，检查用户名和密码</h4>
+    <h4 style="display:${validateFalse!};">登录失败，请重新输入验证码</h4>
+</body>
+</html>

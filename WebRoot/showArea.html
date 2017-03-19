@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="jquery-3.1.0.js"></script>
+<title>Insert title here</title>
+
+<script>
+function showCollegeName(){
+	var obj = document.getElementById("schoolPro").value;
+	
+	$.ajax({  
+	    data:{"province":obj},  
+	    url:"/CloudPrint/showSchool/schoolList",  
+	    type:"post",  
+	    success:function(data){  
+
+	    	var ops = document.getElementById("college_name");
+	         
+	         ops.options.length = 0;
+	         for (var i = 0; i < data.length - 1; i++) {
+	             var yearline = document.getElementById("college_name");
+	             yearline.options[i] = new Option(data[i].school_name,data[i].school_name);
+	         }
+	
+	         ops.selectedIndex = 0;
+	    }
+	});
+}
+</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td><label>学校省份： <select id="schoolPro" name="schoolPro"
+					class="province" onchange="showCollegeName()">
+						<script>
+							var pro_array = [ "北京", "上海", "山东", "天津", "重庆",
+									"河北", "河南", "四川", "山西", "安徽", "江西", "江苏",
+									"浙江", "湖北", "湖南", "广东", "广西", "云南", "福建",
+									"贵州", "陕西", "青海", "宁夏", "吉林", "辽宁", "西藏",
+									"黑龙江", "新疆", "内蒙古", "海南", "甘肃" ];
+
+							var ops = document.getElementById('schoolPro');
+							for (var i = 0; i < pro_array.length; i++) {
+								var opt = new Option(pro_array[i], pro_array[i]);
+								ops.options[i] = opt;
+							}
+							ops.selectedIndex = 0;
+						</script>
+				</select></label></td>
+		</tr>
+		<tr>
+			<td colspan="2"><label>大学名称： <select name="college_name"
+					class="collegeName" id="college_name">
+						<script type="text/javascript">
+							showCollegeName();
+						</script>
+				</select></label></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加新的管理员</title>
+</head>
+<body>
+<form action="/CloudPrint/manager/addManager" method="post">
+        <label>管理员ID:</label><input type="text" name="manager.manager_id" value="${id!}"> <br /><br /> 
+        <label>管理员姓名:</label><input type="text" name="manager.manager_name" value="${name!}"> <br /><br /> 
+        <label>密码:</label><input type="password" name="manager.manager_pwd" value="${pwd!}"><br /><br />
+        <label>学校:</label><input type="text" name="manager.school_id" value="${address!}"><br /><br />
+        <button type="submit">注册</button>
+    </form>
+    <h4 style="display:${loginFalse!};">注册失败，检查该ID是否已经存在</h4>
+</body>
+</html>
