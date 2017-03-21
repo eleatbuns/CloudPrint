@@ -5,7 +5,9 @@ package com.cloudprint.controller;
 
 import java.util.List;
 
+import com.cloudprint.config.MyInterceptor;
 import com.cloudprint.model.Manager;
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 
 /**
@@ -22,6 +24,7 @@ public class SuLoginController extends Controller {
 		setAttr("validateFalse", validateFalse);
         render("/suLogin.html");
     }
+	@Before(MyInterceptor.class)
 	public void Tobackground() {
 		render("/index.html");
 	}
@@ -38,7 +41,7 @@ public class SuLoginController extends Controller {
 	}
 	public void managerLogin() {
 		List<Manager> managers=Manager.dao.findByIDAndPwd(getPara("manager.manager_id"), getPara("manager.manager_pwd"));
-//		System.out.println("执行到了这里"+managers);
+
 		if (managers.size() > 0) {
 			//找到该用户
 			setSessionAttr("managerMessage", managers.get(0));

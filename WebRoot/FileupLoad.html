@@ -8,10 +8,10 @@
 <script type="text/javascript">
 	function sort(id) {
 		var flag = document.getElementById(id).value;
-		if (flag == "true") {
-			document.getElementById(id).value = "false";
+		if (flag == "YES") {
+			document.getElementById(id).value = "NO";
 		} else {
-			document.getElementById(id).value = "true";
+			document.getElementById(id).value = "NO";
 		}
 	}
 </script>
@@ -20,9 +20,9 @@
 		<form method="post" enctype="multipart/form-data" action="/CloudPrint/upLoadFile/uploadFile">
 			<h4>
 				<input type="file" id="upload" name="upload" /><br> 
-				是否双面？<input type="button" id="btn" value="true" name="paper.is_single" onclick="sort('btn')" /> <br>
-				是否彩印？<input type="button" id="color" value="true" name="paper.is_color" onclick="sort('color')" /><br>
-				打印份数：<input type="text" name="paper.copies">
+				是否单面？<input type="text" id="btn" value="YES" name="is_single" onclick="sort('btn')" /> <br>
+				是否彩印？<input type="text" id="color" value="YES" name="is_color" onclick="sort('color')" /><br>
+				打印份数：<input type="text" name="copies" value=1>
 				<br> <input type="submit" value="提交" />
 			</h4>
 		</form>

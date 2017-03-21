@@ -23,7 +23,7 @@ public class FilePDF {
 		PdfDocument pdfDocument = new PdfDocument(reader);
 
 		pages = pdfDocument.getNumberOfPages();
-		System.out.println(pages);
+
 		try {
 			reader.close();
 			pdfDocument.close();

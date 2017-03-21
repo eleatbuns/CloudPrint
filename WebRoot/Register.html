@@ -14,6 +14,12 @@
         <label>昵称:</label><input type="text" name="user.user_name" value="${name!}"> <br /><br /> 
         <label>密码:</label><input type="password" name="user.user_password" value="${pwd!}"><br /><br />
         <label>学校:</label><input type="text" name="user.user_address" value="${address!}"><br /><br />
+        <select name="user.security_question">
+        	<option value="1">你的学号</option>
+        	<option value="2">父亲姓名</option>
+        	<option value="3">母亲姓名</option>
+        </select>
+         <label>密保答案</label><input type="text" name="user.security_answer" value="${answer!}"><br /><br />
         <button type="submit">注册</button>
     </form>
     <h4 style="display:${loginFalse!};">注册失败，检查该手机号已经被注册</h4>

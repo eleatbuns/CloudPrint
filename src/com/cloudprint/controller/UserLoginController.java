@@ -41,7 +41,7 @@ public class UserLoginController extends Controller {
 	}
 //*************************************
 //***********找回密码*******************
-	@Before(MyInterceptor.class)
+	
 	public void ForgetPwd(){
 		render("/ForgetPassword.html");
 	}
@@ -140,7 +140,11 @@ public class UserLoginController extends Controller {
 		String password=getPara("user.password");
 		User user=getSessionAttr("userMessage");
 		int user_phone = user.getUserPhone();
-		Db.update("UPDATE USER SET user_password='?' WHERE user_phone='?';",password,user_phone);
+		int update=Db.update("UPDATE USER SET user_password=? WHERE user_phone=?;",password,user_phone);
+		if (update==1) {
+			renderHtml("<center><h2>密码修改成功</h2></center>");
+//			redirect("/ToIndex");
+		}
 	}
 	
 }

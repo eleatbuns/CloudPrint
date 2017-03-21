@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<#if pageHandler??>
+<div class="row">    
+    <div class="col-xs-6">
+         <div class="box-footer clearfix" id="">共 ${pageHandler.totalRow} 条；${pageHandler.totalPage} 页；当前第 ${pageHandler.pageNumber} 页</div>
+    </div>
+    <div class="col-xs-6">
+        <div class="box-footer clearfix">
+            <ul class="pagination no-margin pull-right">
+            <#if pageHandler.hasPreviousPage>
+                <li class="prev"><a href="${ctx}${pageHandler.basePathUrl}${pageHandler.previousPageNumber}">← 上一页</a></li>
+            <#else>
+                <li class="prev disabled"><a>← 上一页</a></li>
+            </#if>
+                <#-- 起始展示页跟首页相比大于0 -->
+                <#if (pageHandler.startPageNum - 1 > 0)>
+                    <li><a>...</a></li>
+                </#if>
+                <#list (pageHandler.startPageNum)..(pageHandler.endPageNum) as pNum> 
+                    <#if pNum == pageHandler.pageNumber>
+                        <li class="active"><a>${pNum}</a></li>
+                    <#else>
+                        <li><a href="${ctx}${pageHandler.basePathUrl}${pNum}">${pNum}</a></li>
+                    </#if>                
+                </#list>
+                <#-- 尾页跟结束展示页相比大于0 -->
+                <#if (pageHandler.totalPage - pageHandler.endPageNum > 0)>
+                    <li><a>...</a></li>
+                </#if> 
+            <#if pageHandler.hasNextPage>
+                <li class="next"><a href="${ctx}${pageHandler.basePathUrl}${pageHandler.nextPageNumber}">下一页 →</a></li>
+            <#else>
+                <li class="next disabled"><a>下一页 →</a></li>
+            </#if>
+            </ul>
+        </div>
+    </div>
+</div>
+</#if>
+</body>
+</html>

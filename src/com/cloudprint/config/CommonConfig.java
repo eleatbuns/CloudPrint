@@ -8,6 +8,7 @@ import com.cloudprint.controller.UserLoginController;
 import com.cloudprint.controller.SuLoginController;
 import com.cloudprint.controller.UpLoadFile;
 import com.cloudprint.model.Manager;
+import com.cloudprint.model.Paper;
 import com.cloudprint.model.Province;
 import com.cloudprint.model.School;
 import com.cloudprint.model.User;
@@ -82,7 +83,7 @@ public class CommonConfig extends JFinalConfig {
 		arp.addMapping("manager","manager_id", Manager.class);
 		arp.addMapping("school", "school_id", School.class);
 		arp.addMapping("province", "province_num",Province.class);
-//		arp.addMapping("say", "id", Say.class);
+		arp.addMapping("paper", "paper_id", Paper.class);
 //		arp.addMapping("diary", "id", Diary.class);
 //		arp.addMapping("photo", "id", Image.class);
 //		arp.addMapping("study", "id", Study.class);
