@@ -26,19 +26,16 @@ public class UpLoadPicture extends Controller {
 	private static final String config_fileUploadRoot="/PictureLoadFolder/";
 	
 	public void PrintPicture(){
-		StringBuilder savePathStr = new StringBuilder(getAttr("basePath") + config_fileUploadRoot);
-		File savePath = new File(savePathStr.toString());
 
-		if (!savePath.exists()) {
+		String upLoadPath=config_fileUploadRoot;
 
-			savePath.mkdirs();
-		}
 		String fileRoot = "";
 		
 		try {
 			// 保存文件
-			List<UploadFile> files = getFiles();
-			fileRoot = savePath.getAbsolutePath() + "\\" + files.get(0).getFileName();
+			List<UploadFile> files = getFiles(upLoadPath);
+			fileRoot = files.get(0).getUploadPath() + files.get(0).getFileName();
+			System.out.println(files.get(0).getUploadPath());
 			/*
 			 * 获取用户信息
 			 */

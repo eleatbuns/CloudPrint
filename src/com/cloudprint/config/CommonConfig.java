@@ -19,6 +19,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.core.Const;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
@@ -43,6 +44,7 @@ public class CommonConfig extends JFinalConfig {
 		me.setDevMode(true);
 		me.setViewType(ViewType.FREE_MARKER);
 		me.setBaseUploadPath("D:/CloudPrint/upLoadFolder/");
+		me.setMaxPostSize(500*Const.DEFAULT_MAX_POST_SIZE);
 	}
 
 	/* (non-Javadoc)

@@ -29,7 +29,7 @@ public class UpLoadFile extends Controller {
 	/**
 	 * 文件上传根路径
 	 */
-	public static final String config_fileUploadRoot = "/upLoadFolder/";
+	public static final String config_fileUploadRoot = "/DOCLoadFolder/";
 	
 	
 	private final double BASE_PRICE = 1.0;// 基础价格
@@ -43,19 +43,12 @@ public class UpLoadFile extends Controller {
 		/**
 		 * 文件上传根路径
 		 */
-		StringBuilder savePathStr = new StringBuilder(getAttr("basePath") + config_fileUploadRoot);
-
-		File savePath = new File(savePathStr.toString());
-
-		if (!savePath.exists()) {
-
-			savePath.mkdirs();
-		}
+		String upLoadPath=config_fileUploadRoot;
 		String fileRoot = "";
 
 		try {
 			// 保存文件
-			List<UploadFile> files = getFiles();
+			List<UploadFile> files = getFiles(upLoadPath);
 			/*
 			 * 获取用户信息
 			 */
@@ -69,7 +62,7 @@ public class UpLoadFile extends Controller {
 			String OrderNumber = school_id + data + files.size();
 
 			for (int i = 0; i < files.size(); i++) {
-				fileRoot = savePath.getAbsolutePath() + "\\" + files.get(i).getFileName();
+				fileRoot =  files.get(i).getUploadPath() + "/" + files.get(i).getFileName();
 
 				String extensionName = FileConfig.getExtensionName(files.get(i).getFileName());
 
@@ -100,8 +93,8 @@ public class UpLoadFile extends Controller {
 				short is_color = 0;
 				int copies = getParaToInt("copies");
 				double sum_price = 0;
-				System.out.println("is_single=" + getPara("is_single"));
-				System.out.println("is_color=" + getPara("is_color"));
+//				System.out.println("is_single=" + getPara("is_single"));
+//				System.out.println("is_color=" + getPara("is_color"));
 
 				switch (getPara("is_single")) {
 				case "NO":
@@ -121,10 +114,10 @@ public class UpLoadFile extends Controller {
 				}
 
 				if(is_single==0&&is_color==0){//双面单色
-					sum_price = copies * DOUBLE_PRICE * Math.ceil(((double)pageNum) / 2);
+					sum_price = copies * DOUBLE_PRICE* Math.ceil(((double)pageNum) / 2)/10;
 				}
 				if(is_single==0&&is_color==1){//双面彩色
-					sum_price = copies * COLOR_DOUB_PRICE * Math.ceil(((double)pageNum) / 2);
+					sum_price = copies * COLOR_DOUB_PRICE * Math.ceil(((double)pageNum) / 2)/10;
 				}
 				if(is_single==1&&is_color==0){//单面单色
 					sum_price = copies * SINGLE_PRICE * pageNum;
