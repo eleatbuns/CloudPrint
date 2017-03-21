@@ -5,11 +5,12 @@ package com.cloudprint.controller;
 
 import java.util.List;
 
+import com.cloudprint.config.MyInterceptor;
 import com.cloudprint.model.User;
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
 
-import jdk.internal.dynalink.beans.StaticClass;
-import jdk.nashorn.internal.ir.Block;
 
 /**
  * @author gaoli
@@ -18,16 +19,18 @@ import jdk.nashorn.internal.ir.Block;
 public class UserLoginController extends Controller {
 	static String Loginfalse="none";
 	static String validateFalse="none";
+//****************登录界面*****************
 	public void index() {
 		setAttr("loginFalse", Loginfalse);
 		setAttr("validateFalse", validateFalse);
 		render("/Login.html");
 	}
-
+	@Before(MyInterceptor.class)
 	public void ToIndex() {
 		render("/index.html");
 	}
-
+//*****************************************
+//********************注册界面**************
 	public void register() {
 		setAttr("loginFalse", Loginfalse);
 		render("/Register.html");
@@ -36,7 +39,18 @@ public class UserLoginController extends Controller {
 	public void reRegister() {
 		render("/Register.html");
 	}
-
+//*************************************
+//***********找回密码*******************
+	@Before(MyInterceptor.class)
+	public void ForgetPwd(){
+		render("/ForgetPassword.html");
+	}
+	@Before(MyInterceptor.class)
+	public void resetPwd(){
+		render("/ResetPassword.html");
+	}
+//*************************************
+	
 	/*
 	 * 验证码 由JFinal自动实现
 	 */
@@ -83,7 +97,8 @@ public class UserLoginController extends Controller {
 	public void userRegister() {
 		User user = getModel(User.class, "user");
 		List<User> users = User.dao.findByPhone(getPara("user.user_phone"));
-		if (users.size() == 0) {
+		
+		if (users.size() == 0) {//当前用户不存在，可以注册
 			user.save();
 			// 注册成功
 			setSessionAttr("username", getPara("userName"));
@@ -94,5 +109,38 @@ public class UserLoginController extends Controller {
 			redirect("/register");
 		}
 	}
+	
+	
+	/*
+	 * 用户找回密码
+	 */
+	public void FindPassword(){
+		List<User> users = User.dao.findByPhoneAndSecurity(getPara("user.user_phone"),getPara("user.security_question"),getPara("user.security_answer"));
+		if (users.size() > 0) {
+			// 找到用户
+			setSessionAttr("userMessage", users.get(0));
+			
+			if(validateCaptcha(FORM_ITEM_CODE)){ // 验证码验证成功 
+				redirect("/resetPwd");
+				
+			}else{ 
+				Loginfalse="none";
+				validateFalse="block";
+				redirect("/ForgetPwd");
+			} 
+		} else {
+			Loginfalse="block";
+			validateFalse="none";
+			redirect("/ForgetPwd");
 
+		}
+	}
+	
+	public void resetPassword() {
+		String password=getPara("user.password");
+		User user=getSessionAttr("userMessage");
+		int user_phone = user.getUserPhone();
+		Db.update("UPDATE USER SET user_password='?' WHERE user_phone='?';",password,user_phone);
+	}
+	
 }
