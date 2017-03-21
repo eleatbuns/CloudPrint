@@ -30,6 +30,8 @@ public class UpLoadFile extends Controller {
 	 * 文件上传根路径
 	 */
 	public static final String config_fileUploadRoot = "/upLoadFolder/";
+	
+	
 	private final double BASE_PRICE = 1.0;// 基础价格
 	private final double SINGLE_PRICE = 0.07;// 单面黑白打印价格
 	private final double DOUBLE_PRICE = 0.1;// 双面黑白打印价格

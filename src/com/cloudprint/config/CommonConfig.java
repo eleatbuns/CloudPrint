@@ -7,6 +7,7 @@ import com.cloudprint.controller.ShowSchool;
 import com.cloudprint.controller.UserLoginController;
 import com.cloudprint.controller.SuLoginController;
 import com.cloudprint.controller.UpLoadFile;
+import com.cloudprint.controller.UpLoadPicture;
 import com.cloudprint.model.Manager;
 import com.cloudprint.model.Paper;
 import com.cloudprint.model.Province;
@@ -54,6 +55,7 @@ public class CommonConfig extends JFinalConfig {
 		 me.add("/manager", SuLoginController.class);
 		 me.add("/showSchool", ShowSchool.class);
 		 me.add("/upLoadFile",UpLoadFile.class);
+		 me.add("/upLoadPicture",UpLoadPicture.class);
 
 	}
 
